@@ -1,0 +1,46 @@
+[
+  {
+    "id": "billing-dispute",
+    "title": "Frustrated Customer - Billing Dispute",
+    "description": "Customer calling about incorrect charges, third time calling",
+    "transcription": "Agent: Thank you for calling Contoso Airlines support, this is Mike, how can I help you today?\n\nCustomer: Hi Mike, I'm really frustrated here. This is the third time I'm calling about the same issue. I got charged $299 on my credit card for some premium seat upgrade that I never selected. Confirmation number CON-45231. I've been a loyal Contoso frequent flyer for over 5 years and this is really making me consider switching to another carrier.\n\nAgent: I'm really sorry to hear about this frustration, let me look into that right away. Can you confirm your account email?\n\nCustomer: It's sarah.johnson@email.com. I just want this resolved today, Mike. I shouldn't have to keep calling back for the same thing.\n\nAgent: Absolutely, Sarah. I see your reservation here and I can see the charge from last Tuesday. Let me investigate this premium seat upgrade charge. I'm going to escalate this to our billing specialist and make sure you get a callback by tomorrow afternoon. In the meantime, I'm going to put a temporary credit of $299 on your account right now.\n\nCustomer: Okay, that sounds better. I just need this fixed properly this time.\n\nAgent: I completely understand. You'll get an email confirmation of the credit in the next few minutes, and our billing specialist will call you tomorrow between 1-3 PM. Is the phone number ending in 4578 still the best number to reach you?\n\nCustomer: Yes, that's correct. Thank you Mike, I appreciate you actually helping me today.",
+    "expectedOutcome": {
+      "sentiment": "frustrated",
+      "escalationRisk": "high",
+      "primaryIntent": "billing_dispute"
+    }
+  },
+  {
+    "id": "product-defect",
+    "title": "Product Quality Issue",
+    "description": "Customer reporting defective product, needs technical support",
+    "transcription": "Agent: Good morning, this is Jennifer from Contoso Electronics technical support, how can I assist you?\n\nCustomer: Hi Jennifer, I purchased your wireless headphones model CT-2024 about two weeks ago, and they're already having issues. The left earbud keeps cutting out intermittently.\n\nAgent: I'm sorry to hear about that issue with your CT-2024 headphones. That's definitely not the experience we want you to have. Can you tell me your order number?\n\nCustomer: Sure, it's CON-78432. I bought them on March 15th.\n\nAgent: Thank you. I see your order here. Have you tried the basic troubleshooting steps like resetting the headphones or checking the firmware version?\n\nCustomer: Yes, I tried resetting them multiple times and they're running the latest firmware. The issue persists. It's particularly noticeable during phone calls.\n\nAgent: I understand. Since you've already tried those steps and the product is well within warranty, I'm going to arrange a replacement for you. We'll send out a new pair of CT-2024 headphones via next-day shipping, and I'll include a prepaid return label for the defective unit.\n\nCustomer: That sounds great, thank you. When should I expect them?\n\nAgent: You should receive them by tomorrow afternoon. I'll send you a tracking number via email within the hour. Is your shipping address still 123 Main Street?\n\nCustomer: Yes, that's correct. I really appreciate the quick resolution, Jennifer.\n\nAgent: You're very welcome! Is there anything else I can help you with today?",
+    "expectedOutcome": {
+      "sentiment": "neutral",
+      "escalationRisk": "low",
+      "primaryIntent": "product_defect"
+    }
+  },
+  {
+    "id": "upsell-opportunity",
+    "title": "Happy Customer - Upsell Potential",
+    "description": "Satisfied customer asking about additional services",
+    "transcription": "Agent: Hello, this is David from Contoso Cloud Services, thank you for calling. How can I help you today?\n\nCustomer: Hi David! I've been using your basic cloud storage plan for about 6 months now and I'm really happy with it. I'm actually calling because my business is growing and I think I need to upgrade. Can you tell me about your premium features?\n\nAgent: That's wonderful to hear! Congratulations on your business growth. I'd be happy to help you find the right plan. You're currently on our Starter plan at $49 per month, correct?\n\nCustomer: Yes, that's right. But I'm now handling about 500 customers per month instead of the 100 I started with, and I'm hitting some storage limits.\n\nAgent: Perfect, it sounds like our Professional plan would be ideal for you. It supports up to 1TB of storage, includes advanced analytics, priority support, and automated backup workflows. It's $149 per month.\n\nCustomer: That sounds like exactly what I need. The automated workflows would save me so much time. How quickly can I upgrade?\n\nAgent: I can process that upgrade right now if you'd like. The new features would be active within an hour, and your next billing cycle would reflect the new pricing starting April 1st.\n\nCustomer: Let's do it! Also, do you have any training resources for the advanced features?\n\nAgent: Absolutely! I'll send you links to our training videos and schedule you for a complimentary onboarding session with our success team. They'll call you next week to help you get the most out of your new features.\n\nCustomer: This is exactly why I love working with Contoso. Your service is fantastic.\n\nAgent: Thank you so much! The upgrade is processing now, and you'll receive a confirmation email shortly.",
+    "expectedOutcome": {
+      "sentiment": "positive",
+      "escalationRisk": "low",
+      "primaryIntent": "service_upgrade"
+    }
+  },
+  {
+    "id": "account-verification",
+    "title": "Security Issue - Account Access",
+    "description": "Customer locked out, needs account verification and password reset",
+    "transcription": "Agent: Contoso Financial security support, this is Alex speaking. How can I help you?\n\nCustomer: Hi Alex, I'm locked out of my online banking account and I can't reset my password. I keep getting error messages when I try to log in.\n\nAgent: I can definitely help you with that. For security purposes, I'll need to verify your identity first. Can you provide me with the email address associated with your account?\n\nCustomer: Sure, it's michael.chen@company.com\n\nAgent: Thank you. Now I need to verify a few details. Can you tell me the last four digits of the debit card on file?\n\nCustomer: It should be 7823.\n\nAgent: Perfect. And what's the billing address zip code we have on file?\n\nCustomer: 10001\n\nAgent: Great, thank you Michael. I can see your account was temporarily locked due to multiple failed login attempts earlier today around 2 PM. This is a security measure we have in place to protect your financial information.\n\nCustomer: Oh, that makes sense. I was trying different passwords because I couldn't remember which one I used.\n\nAgent: No worries, that happens to everyone. I'm going to unlock your account right now and send a secure password reset link to your email. You should receive it within the next 5 minutes.\n\nCustomer: Excellent. Will I have any issues accessing my account balance and transaction history once I reset the password?\n\nAgent: Not at all. All your data is secure and you'll have full access once you create your new password. Just make sure to use a strong password with at least 8 characters.\n\nCustomer: Perfect, thank you for your help Alex.\n\nAgent: You're welcome! The reset email is on its way. Is there anything else I can assist you with today?",
+    "expectedOutcome": {
+      "sentiment": "neutral",
+      "escalationRisk": "low",
+      "primaryIntent": "account_access"
+    }
+  }
+]

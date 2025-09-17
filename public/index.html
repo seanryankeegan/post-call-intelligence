@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure Communication Services Post-Call Intelligence Demo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Azure Communication Services Post-Call Intelligence Demo</h1>
+            <p>Transform customer conversations into actionable insights with AI-powered analysis and human oversight</p>
+        </header>
+
+        <div class="demo-section">
+            <div class="scenario-selector">
+                <h2>Choose a Customer Scenario</h2>
+                <div id="scenarioButtons"></div>
+            </div>
+        </div>
+
+        <div class="main-demo" id="mainDemo" style="display: none;">
+            <div class="demo-grid">
+                <!-- Left Column: Chat Display (wider) -->
+                <div class="chat-panel">
+                    <div class="panel-header">
+                        <h3>Call Transcript</h3>
+                        <span class="acs-badge">Azure Communication Services</span>
+                    </div>
+                    <div class="chat-container" id="chatContainer">
+                        <!-- Chat messages will be populated here -->
+                    </div>
+                    <div class="analysis-controls">
+                        <button id="analyzeBtn" class="analyze-btn" disabled>
+                            Analyze with AI
+                        </button>
+                        <button id="resetBtn" class="reset-btn">
+                            Reset Demo
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Column: AI Analysis (narrower) -->
+                <div class="analysis-panel">
+                    <div class="panel-header">
+                        <h3>AI Analysis</h3>
+                        <span class="ai-badge">Azure OpenAI</span>
+                    </div>
+                    
+                    <div class="analysis-content" id="analysisContent">
+                        <div class="analysis-placeholder">
+                            Click "Analyze with AI" to see intelligent insights...
+                        </div>
+                    </div>
+
+                    <!-- Human Review Section -->
+                    <div class="review-section" id="reviewSection" style="display: none;">
+                        <div class="review-header">
+                            <h4>Human Review & Oversight</h4>
+                            <p>Review and edit before finalizing.</p>
+                        </div>
+                        <div class="review-actions">
+                            <button id="editBtn" class="edit-btn">Edit Analysis</button>
+                            <button id="approveBtn" class="approve-btn">Approve & Send to CRM</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Schema Display -->
+            <div class="schema-section" id="schemaSection" style="display: none;">
+                <div class="panel-header">
+                    <h3>Structured Data for CRM Integration</h3>
+                    <span class="schema-badge">API Ready</span>
+                </div>
+                <div class="schema-content" id="schemaContent">
+                    <!-- Schema visualization will go here -->
+                </div>
+            </div>
+
+            <!-- Bottom Section: CRM Integration -->
+            <div class="crm-section" id="crmSection" style="display: none;">
+                <div class="panel-header">
+                    <h3>Dynamics 365 Case Created</h3>
+                    <span class="crm-badge">Auto-Generated</span>
+                </div>
+                <div class="crm-content" id="crmContent">
+                    <!-- CRM record and customer email will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Modal -->
+        <div class="modal-overlay" id="editModal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Edit AI Analysis</h3>
+                    <button class="close-btn" id="closeModal">&times;</button>
+                </div>
+                <div class="modal-body" id="editForm">
+                    <!-- Editable form will be populated here -->
+                </div>
+                <div class="modal-footer">
+                    <button id="saveChanges" class="save-btn">Save Changes</button>
+                    <button id="cancelEdit" class="cancel-btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <p id="loadingText">Analyzing conversation with Azure OpenAI...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Azure Communication Services + Azure OpenAI + Dynamics 365</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

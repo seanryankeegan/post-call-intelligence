@@ -1,0 +1,871 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.demo-section {
+    flex: 1;
+}
+
+.scenario-selector {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.scenario-selector h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#scenarioButtons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.scenario-btn {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    border: none;
+    padding: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: left;
+}
+
+.scenario-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
+}
+
+.scenario-btn h4 {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.scenario-btn p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.main-demo {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+
+.demo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+.panel-header h3 {
+    color: #333;
+    font-size: 1.2rem;
+}
+
+.acs-badge, .ai-badge, .crm-badge, .schema-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.acs-badge {
+    background: #0078d4;
+    color: white;
+}
+
+.ai-badge {
+    background: #00bcf2;
+    color: white;
+}
+
+.crm-badge {
+    background: #742774;
+    color: white;
+}
+
+.schema-badge {
+    background: #28a745;
+    color: white;
+}
+
+/* Chat UI - Extended Height */
+.chat-container {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    height: 600px; /* Fixed height instead of max-height */
+    overflow-y: auto;
+    font-size: 0.9rem;
+}
+
+.chat-message {
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    max-width: 85%;
+    word-wrap: break-word;
+}
+
+.chat-message.agent {
+    background: #e3f2fd;
+    border-left: 3px solid #0078d4;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.chat-message.customer {
+    background: #f1f8e9;
+    border-left: 3px solid #2e7d32;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.chat-message .speaker {
+    font-weight: bold;
+    margin-bottom: 4px;
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.chat-message .content {
+    line-height: 1.4;
+}
+
+/* Analysis Content */
+.analysis-content {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    height: 600px; /* Match chat height */
+    overflow-y: auto;
+}
+
+.analysis-placeholder {
+    color: #6c757d;
+    text-align: center;
+    padding: 40px 20px;
+    font-style: italic;
+}
+
+.analysis-controls {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.analyze-btn, .reset-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.analyze-btn {
+    background: #28a745;
+    color: white;
+    flex: 1;
+}
+
+.analyze-btn:hover:not(:disabled) {
+    background: #218838;
+    transform: translateY(-1px);
+}
+
+.analyze-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+}
+
+.reset-btn {
+    background: #6c757d;
+    color: white;
+}
+
+.reset-btn:hover {
+    background: #5a6268;
+    transform: translateY(-1px);
+}
+
+/* Human Review Section */
+.review-section {
+    margin-top: 20px;
+    padding: 15px;
+    background: #fff3cd;
+    border: 1px solid #ffeeba;
+    border-radius: 8px;
+}
+
+.review-header h4 {
+    color: #856404;
+    margin-bottom: 5px;
+}
+
+.review-header p {
+    color: #856404;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.review-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-btn, .approve-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.edit-btn {
+    background: #ffc107;
+    color: #212529;
+}
+
+.edit-btn:hover {
+    background: #e0a800;
+}
+
+.approve-btn {
+    background: #28a745;
+    color: white;
+}
+
+.approve-btn:hover {
+    background: #218838;
+}
+
+/* Analysis Cards */
+.analysis-card {
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.analysis-card h4 {
+    color: #495057;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sentiment-positive { color: #28a745; }
+.sentiment-negative { color: #dc3545; }
+.sentiment-neutral { color: #6c757d; }
+.sentiment-frustrated { color: #fd7e14; }
+
+.risk-high { color: #dc3545; }
+.risk-medium { color: #ffc107; }
+.risk-low { color: #28a745; }
+
+.confidence-score {
+    background: #e9ecef;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-left: 10px;
+}
+
+.key-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.key-info-item {
+    background: #e3f2fd;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border-left: 3px solid #2196f3;
+}
+
+.key-info-item strong {
+    display: block;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 2px;
+}
+
+.actions-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.action-tag {
+    background: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+/* Schema Section */
+.schema-section {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 2px solid #eee;
+}
+
+.schema-content {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.schema-preview {
+    background: #1a1a1a;
+    color: #f8f8f2;
+    padding: 30px 20px 20px 20px; /* Added top padding for label */
+    border-radius: 8px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.85rem;
+    height: 400px;
+    overflow-y: auto;
+    border-left: 4px solid #28a745;
+    position: relative;
+    white-space: pre;
+}
+
+.schema-preview::before {
+    content: "CRM API Payload";
+    position: absolute;
+    top: 8px; /* Moved inside the container */
+    left: 15px;
+    background: #28a745;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+/* JSON syntax highlighting */
+/* Update the JSON syntax highlighting in your existing styles.css */
+.json-key { 
+    color: yellow; 
+    font-weight: bold;
+}
+
+/* CRM Section */
+.crm-section {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 2px solid #eee;
+}
+
+.crm-content {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.crm-record {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.crm-field {
+    background: white;
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 3px solid #742774;
+}
+
+.crm-field strong {
+    display: block;
+    color: #495057;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.priority-high { color: #dc3545; font-weight: bold; }
+.priority-medium { color: #ffc107; font-weight: bold; }
+.priority-low { color: #28a745; font-weight: bold; }
+
+/* Customer Email Section */
+.email-section {
+    margin-top: 20px;
+    padding: 15px;
+    background: #e8f5e8;
+    border: 1px solid #c3e6cb;
+    border-radius: 8px;
+}
+
+.email-section h4 {
+    color: #155724;
+    margin-bottom: 10px;
+}
+
+.email-preview {
+    background: white;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #c3e6cb;
+    margin-bottom: 15px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.email-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.send-email-btn, .view-acs-demo-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.send-email-btn {
+    background: #007bff;
+    color: white;
+}
+
+.send-email-btn:hover {
+    background: #0056b3;
+}
+
+.view-acs-demo-btn {
+    background: #6c757d;
+    color: white;
+}
+
+.view-acs-demo-btn:hover {
+    background: #545b62;
+}
+
+/* Edit Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6c757d;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-group input, .form-group textarea, .form-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.form-group textarea {
+    height: 80px;
+    resize: vertical;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 20px;
+    border-top: 1px solid #dee2e6;
+}
+
+.save-btn, .cancel-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.save-btn {
+    background: #28a745;
+    color: white;
+}
+
+.save-btn:hover {
+    background: #218838;
+}
+
+.cancel-btn {
+    background: #6c757d;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background: #5a6268;
+}
+
+/* Loading States */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loading-content {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #0078d4;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Footer */
+footer {
+    margin-top: 30px;
+    text-align: center;
+    color: white;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .demo-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .container {
+        padding: 15px;
+    }
+    
+    #scenarioButtons {
+        grid-template-columns: 1fr;
+    }
+    
+    .key-info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .crm-record {
+        grid-template-columns: 1fr;
+    }
+    
+    .review-actions, .email-actions {
+        flex-direction: column;
+    }
+    
+    .chat-container, .analysis-content {
+        height: 400px;
+    }
+}
+
+/* Add these new styles to your existing styles.css */
+
+/* Integration Status Styles */
+.integration-status {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.integration-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #007bff;
+    background: #e3f2fd;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+.integration-success {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #28a745;
+    background: #d4edda;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+.integration-error {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #dc3545;
+    background: #f8d7da;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+.integration-details {
+    margin-top: 5px;
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.success-icon {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.error-icon {
+    font-size: 1.2rem;
+}
+
+.spinner-small {
+    border: 2px solid #e3f2fd;
+    border-top: 2px solid #007bff;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    animation: spin 1s linear infinite;
+}
+
+/* Enhanced CRM Record Styles */
+.crm-integration-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #742774;
+    color: white;
+    border-radius: 6px 6px 0 0;
+    margin-bottom: 0;
+}
+
+.dynamics-logo {
+    font-size: 0.9rem;
+}
+
+.integration-timestamp {
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+.crm-record {
+    background: white;
+    border: 1px solid #742774;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0;
+}
+
+.crm-field {
+    padding: 15px;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.crm-field:last-child {
+    border-right: none;
+}
+
+.crm-field.primary-field {
+    background: #f8f9fa;
+}
+
+.crm-field.priority-field .field-value {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.field-value {
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+.field-note {
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: 3px;
+    font-style: italic;
+}
+
+.case-link {
+    color: #742774;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 8px;
+}
+
+.case-link:hover {
+    text-decoration: underline;
+}
+
+.crm-description-section {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 6px;
+}
+
+.description-content {
+    margin-top: 8px;
+    padding: 12px;
+    background: white;
+    border-radius: 4px;
+    border-left: 3px solid #742774;
+}
+
+.automated-actions {
+    margin-top: 20px;
+    padding: 15px;
+    background: #e8f5e8;
+    border-radius: 6px;
+}
+
+.action-list {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.action-list li {
+    margin-bottom: 5px;
+    color: #155724;
+}

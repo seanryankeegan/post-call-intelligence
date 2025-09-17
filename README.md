@@ -1,14 +1,11 @@
-<<<<<<< HEAD
-# post-call-intelligence
-AI-powered post-call intelligence demo showing how customer service transcripts transform into structured CRM data. Features realistic scenarios, human-in-the-loop editing, and Azure OpenAI integration. Built with Node.js + vanilla JS to demonstrate practical workflows from conversation analysis to automated follow-ups.
-=======
 # Post-Call Intelligence Demo
 
-An AI-powered customer service analysis tool that demonstrates how call transcripts can be transformed into structured, actionable business data using Azure OpenAI. This demo showcases a "human-in-the-loop" workflow where AI provides intelligent analysis while humans maintain oversight and control before data is integrated into CRM systems.
+Transform customer service call transcripts into structured business data using AI analysis with human oversight.
 
-**Note**: This demo uses simulated call transcripts to demonstrate the post-call analysis pipeline. In production, these transcripts would typically be generated from actual Azure Communication Services calling APIs or third-party telephony systems.
+**Note**: This demo uses simulated transcripts to demonstrate the workflow. Production implementations would connect to Azure Communication Services or telephony APIs.
 
 ## What it does
+![Post-Call Intelligence Demo Interface](https://github.com/user-attachments/assets/c7eb8428-9767-4ab0-9946-007c56b36a6a)
 
 1. Select a customer service scenario
 2. AI analyzes the conversation transcript
@@ -24,8 +21,8 @@ An AI-powered customer service analysis tool that demonstrates how call transcri
 ## Quick Start
 
 ```bash
-git clone <repository-url>
-cd post-call-intelligence-demo
+git clone https://github.com/seanryankeegan/post-call-intelligence
+cd post-call-intelligence
 
 # Install dependencies
 npm install

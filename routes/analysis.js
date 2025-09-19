@@ -74,11 +74,9 @@ function initializeOpenAI() {
                 'api-key': process.env.AZURE_OPENAI_KEY,
             }
         });
-        console.log(`🤖 Azure OpenAI initialized with deployment: ${process.env.AZURE_OPENAI_DEPLOYMENT}`);
     }
 }
 
-// Helper to ensure the OpenAI client is available before making requests
 function ensureOpenAIClient() {
     initializeOpenAI();
     if (!openaiClient) {
@@ -89,28 +87,23 @@ function ensureOpenAIClient() {
     }
 }
 
-// Analyze conversation endpoint
+// API Routes
 router.post('/analyze', async (req, res) => {
     try {
         const { transcription, scenarioId } = req.body;
         
-        console.log(`🔍 Analyzing conversation for scenario: ${scenarioId}`);
-        
-        // Initialize OpenAI if not already done
         initializeOpenAI();
-        
-        // Get AI analysis
         const analysis = await getAIAnalysis(transcription);
         
         res.json({
             success: true,
             analysis,
-            schema: customerServiceSchema, // Include schema for transparency
+            schema: customerServiceSchema,
             timestamp: new Date().toISOString()
         });
         
     } catch (error) {
-        console.error('❌ Analysis error:', error);
+        console.error('Analysis error:', error.message);
         res.status(500).json({
             success: false,
             error: `Failed to analyze conversation: ${error.message}`
@@ -118,14 +111,9 @@ router.post('/analyze', async (req, res) => {
     }
 });
 
-// Finalize analysis endpoint (human-approved)
 router.post('/finalize', async (req, res) => {
     try {
         const { analysis, scenarioId } = req.body;
-        
-        console.log(`✅ Finalizing analysis for scenario: ${scenarioId}`);
-        
-        // Create CRM record with human-approved data
         const crmRecord = await createMockCRMRecord(analysis, scenarioId);
         
         res.json({
@@ -136,7 +124,7 @@ router.post('/finalize', async (req, res) => {
         });
         
     } catch (error) {
-        console.error('❌ Finalization error:', error);
+        console.error('Finalization error:', error.message);
         res.status(500).json({
             success: false,
             error: `Failed to finalize analysis: ${error.message}`
@@ -144,12 +132,10 @@ router.post('/finalize', async (req, res) => {
     }
 });
 
-// Get available scenarios
 router.get('/scenarios', (req, res) => {
     res.json(scenarios);
 });
 
-// Get specific scenario
 router.get('/scenarios/:id', (req, res) => {
     const scenario = scenarios.find(s => s.id === req.params.id);
     if (!scenario) {
@@ -158,6 +144,7 @@ router.get('/scenarios/:id', (req, res) => {
     res.json(scenario);
 });
 
+// Core Analysis Function
 async function getAIAnalysis(transcription) {
     ensureOpenAIClient();
 
@@ -174,57 +161,69 @@ Focus on:
 
 Be precise and only extract information that's clearly stated in the conversation.`;
 
-    try {
-        console.log('🤖 Sending request to Azure OpenAI...');
-        
-        const response = await openaiClient.chat.completions.create({
-            model: process.env.AZURE_OPENAI_DEPLOYMENT,
-            messages: [
-                {
-                    role: "system",
-                    content: "You are a customer service analysis expert. Extract accurate information from call transcripts to populate CRM systems. Follow the schema exactly."
-                },
-                {
-                    role: "user",
-                    content: prompt
-                }
-            ],
-            temperature: 0.1,
-            max_tokens: 1000,
-            response_format: {
-                type: "json_schema",
-                json_schema: {
-                    name: "customer_service_analysis",
-                    strict: true,
-                    schema: customerServiceSchema
-                }
+    const baseParams = {
+        model: process.env.AZURE_OPENAI_DEPLOYMENT,
+        messages: [
+            {
+                role: "system",
+                content: "You are a customer service analysis expert. Extract accurate information from call transcripts to populate CRM systems. Follow the schema exactly."
+            },
+            {
+                role: "user",
+                content: prompt
             }
-        });
+        ],
+        response_format: {
+            type: "json_schema",
+            json_schema: {
+                name: "customer_service_analysis",
+                strict: true,
+                schema: customerServiceSchema
+            }
+        }
+    };
 
-        console.log('✅ Azure OpenAI response received');
+    try {
+        // Try GPT-4 parameters first, fallback to GPT-5 if needed
+        let response;
+        try {
+            response = await openaiClient.chat.completions.create({
+                ...baseParams,
+                temperature: 0.1,
+                max_tokens: 1000
+            });
+        } catch (gpt4Error) {
+            if (gpt4Error.status === 400 && 
+                (gpt4Error.message?.includes('max_tokens') || gpt4Error.message?.includes('temperature'))) {
+                // Retry with GPT-5 compatible parameters
+                response = await openaiClient.chat.completions.create({
+                    ...baseParams,
+                    max_completion_tokens: 2000
+                });
+            } else {
+                throw gpt4Error;
+            }
+        }
 
-        // Defensive parsing: ensure the response shape and content exist before parsing
+        // Validate response
+        if (response.choices[0].finish_reason === 'length') {
+            throw new Error('Response was truncated due to token limit. The analysis may be incomplete.');
+        }
+
         const rawContent = response?.choices?.[0]?.message?.content;
         if (!rawContent) {
             throw new Error('Unexpected OpenAI response format: missing content');
         }
 
-        let analysis;
+        // Parse and return analysis
         try {
-            analysis = JSON.parse(rawContent);
+            return JSON.parse(rawContent);
         } catch (parseErr) {
-            console.error('Failed to parse OpenAI response JSON:', parseErr);
             throw new Error('Failed to parse AI response. Response was not valid JSON.');
         }
         
-        return analysis;
-        
     } catch (error) {
-        console.error('💥 OpenAI API error:', error);
-        
-        // Map common error scenarios to friendlier messages
         if (error.code === 'OPENAI_NOT_CONFIGURED') {
-            // Propagate as a 503-style error up the stack
             throw error;
         }
 
@@ -239,9 +238,8 @@ Be precise and only extract information that's clearly stated in the conversatio
     }
 }
 
+// Helper Functions
 async function createMockCRMRecord(analysis, scenarioId) {
-    console.log('📊 Creating Dynamics 365 case...');
-    
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 1500));
     

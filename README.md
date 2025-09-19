@@ -47,6 +47,14 @@ AZURE_OPENAI_KEY="your_api_key"
 AZURE_OPENAI_DEPLOYMENT="your_deployment_name"
 ```
 
+## Model Compatibility
+
+This demo automatically detects and works with both GPT-4 and GPT-5 models:
+- **GPT-4**: Fully supported with optimized parameters
+- **GPT-5**: Supported with automatic parameter adjustment
+
+No configuration needed - the demo detects your model type and uses appropriate API parameters.
+
 ## Usage Costs
 
 This demo uses Azure OpenAI services with usage-based pricing. Costs depend on the model used (e.g., GPT-4) and token volume. See the [Azure OpenAI Pricing page](https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service/) for details.
@@ -63,6 +71,7 @@ For production implementations:
 ## Troubleshooting
 
 - **"Deployment not found"**: Verify your `AZURE_OPENAI_DEPLOYMENT` matches the exact name in Azure Portal → Model deployments
+- **"Unsupported parameter" errors**: The demo automatically handles GPT-4/GPT-5 differences, but ensure your deployment name is correct
 - **"Authentication failed"**: Check your API key is correct and the resource is active
 - **Analysis fails**: Ensure your deployment supports the `2024-08-01-preview` API version
 
